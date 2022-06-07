@@ -19,13 +19,8 @@ public class Event {
     @Column(nullable = false)
     private LocalDateTime time;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "game_id")
-    private Game game;
-
+    @JoinColumn(name = "user_game_id")
+    private UserGame userGame;
 }
 
 

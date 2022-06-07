@@ -9,7 +9,6 @@ import java.util.List;
 
 @Mapper
 public interface EventMapper {
-    @Mapping(source = "user.id", target = "userId")
     EventResponse eventToEventResponse(Event event);
     List<EventResponse> eventToEventResponse(List<Event> event);
 

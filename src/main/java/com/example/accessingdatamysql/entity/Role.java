@@ -14,17 +14,15 @@ import java.util.List;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(nullable = false)
     private String name;
-    // mappedBy trỏ tới tên biến roles ở trong user.
     @ManyToMany(mappedBy = "roles")
-    // LAZY để tránh việc truy xuất dữ liệu không cần thiết. Lúc nào cần thì mới query
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<User> users;
 
-    public Role(int id, String name) {
+    public Role(long id, String name) {
         this.id = id;
         this.name = name;
     }

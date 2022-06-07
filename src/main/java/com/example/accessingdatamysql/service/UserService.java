@@ -2,6 +2,7 @@ package com.example.accessingdatamysql.service;
 import com.example.accessingdatamysql.dto.request.CreateUserRequest;
 import com.example.accessingdatamysql.dto.request.UpdateUserRequest;
 import com.example.accessingdatamysql.dto.request.UserRequest;
+import com.example.accessingdatamysql.dto.response.UserCountEventResponse;
 import com.example.accessingdatamysql.entity.User;
 import com.example.accessingdatamysql.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,10 +24,18 @@ public class UserService {
     public Optional<User> findById(Long Id) {
         return userRepository.findById(Id);
     }
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public Page<User> findUsers(UserRequest request) {
         var pageSize = PageRequest.of(request.getPage(), request.getSize());
         return userRepository.filter(request.getId(), pageSize);
     }
+    public List<UserCountEventResponse> getUserListCountEvent(){
+        return  userRepository.getUserListCountEvent();
+    };
+
 
     @Transactional
     public User saveUser(CreateUserRequest createUserRequest) {

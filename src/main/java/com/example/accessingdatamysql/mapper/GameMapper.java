@@ -9,5 +9,5 @@ import java.util.List;
 @Mapper
 public interface GameMapper {
     GameResponse gameToGameResponse(Game game);
-    List<GameResponse> gameToGameResponse(List<Game> user);
+    List<GameResponse> gameToGameResponse(List<Game> games);
 }

@@ -14,10 +14,7 @@ package com.example.accessingdatamysql.dto.request;
 @Accessors(chain = true)
 public class EventRequest extends PagingDataRequest{
     private Long id;
-    private Long gameId;
-//    @JsonFormat(pattern="yyyy-MM-dd")
-    private LocalDateTime startDate;
-//    @JsonFormat(pattern="yyyy-MM-dd")
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-private LocalDateTime endDate;
+    private String username;
+//    private LocalDateTime startDate;
+//private LocalDateTime endDate;
 }

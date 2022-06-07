@@ -13,6 +13,5 @@ public class EventResponse {
     private Long id;
     private String status;
     private Date time;
-    private Long userId;
-    private GameResponse game;
+    private UserGameResponse userGame;
 }

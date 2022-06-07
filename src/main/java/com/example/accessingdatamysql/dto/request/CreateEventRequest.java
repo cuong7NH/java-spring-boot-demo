@@ -10,12 +10,9 @@ import java.time.LocalDateTime;
 @Setter
 public class CreateEventRequest {
     @NotNull
-    @NotEmpty
     private String status;
     @NotNull
     private LocalDateTime time;
     @NotNull
-    private Long gameId;
-    @NotNull
-    private Long userId;
+    private Long userGameId;
 }
