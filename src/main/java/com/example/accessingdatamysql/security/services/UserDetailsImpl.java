@@ -1,9 +1,8 @@
 package com.example.accessingdatamysql.security.services;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import com.example.accessingdatamysql.entity.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,37 +15,31 @@ public class UserDetailsImpl implements UserDetails {
   private static final long serialVersionUID = 1L;
 
   private Long id;
-
   private String username;
 
   @JsonIgnore
   private String password;
 
-  private Collection<? extends GrantedAuthority> authorities;
+  private String authorities;
 
   public UserDetailsImpl(Long id, String username, String password,
-                         Collection<? extends GrantedAuthority> authorities) {
+                         String authorities) {
     this.id = id;
     this.username = username;
     this.password = password;
-    this.authorities = authorities;
   }
 
   public static UserDetailsImpl build(User user) {
-    List<GrantedAuthority> authorities = user.getRoles().stream()
-        .map(role -> new SimpleGrantedAuthority(role.getName()))
-        .collect(Collectors.toList());
 
     return new UserDetailsImpl(
             user.getId(),
             user.getUsername(),
-            user.getPassword(),
-            authorities);
+            user.getPassword(), null);
   }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return authorities;
+    return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
   }
 
   public Long getId() {

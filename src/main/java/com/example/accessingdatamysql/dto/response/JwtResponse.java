@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.util.List;
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -17,5 +16,5 @@ public class JwtResponse {
     private String type = "Bearer";
     private Long id;
     private String username;
-    private List<String> roles;
+    private String role;
 }

@@ -40,11 +40,11 @@ public class EventService {
         event.setStatus(req.getStatus());
         event.setTime(req.getTime());
         var lastEventId = userGame.get().getLastEventId();
-        Optional<Event> x = lastEventId == null ? Optional.empty() :eventRepository.findById(userGame.get().getLastEventId());
+        Optional<Event> lastEvent = lastEventId == null ? Optional.empty() :eventRepository.findById(userGame.get().getLastEventId());
         var timeUpdate = userGame.get().getPlayTime();
         Event event2 = eventRepository.save(event);
-        if (x.isPresent() && Objects.equals(event2.getStatus(), "PLAYING") && Objects.equals(req.getStatus(), "PLAYING")) {
-            long diffInSeconds = ChronoUnit.SECONDS.between(x.get().getTime(), event2.getTime());
+        if (lastEvent.isPresent() && Objects.equals(event2.getStatus(), "PLAYING") && Objects.equals(req.getStatus(), "PLAYING")) {
+            long diffInSeconds = ChronoUnit.SECONDS.between(lastEvent.get().getTime(), event2.getTime());
             if (diffInSeconds < 60) {
                 timeUpdate = userGame.get().getPlayTime() + diffInSeconds;
             }

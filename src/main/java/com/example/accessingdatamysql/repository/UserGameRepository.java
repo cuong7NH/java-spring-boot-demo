@@ -1,6 +1,8 @@
 package com.example.accessingdatamysql.repository;
 
 import com.example.accessingdatamysql.dto.response.UserGameResponse;
+import com.example.accessingdatamysql.entity.Game;
+import com.example.accessingdatamysql.entity.User;
 import com.example.accessingdatamysql.entity.UserGame;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,12 +25,12 @@ public interface UserGameRepository extends AbstractRepository<UserGame> {
     )
     Page<UserGame> filter(Long id, Long userId, String username, Pageable pageable);
 
+    boolean existsByUserAndGame(User user, Game game);
+
+
     @Transactional
     @Modifying
     @Query("update UserGame u set u.lastEventId = ?1, u.playTime = ?2 where u.id = ?3")
     int updateUserGame(Long lastEventId, Long playTime, Long id);
-//    @Query("UPDATE UserGame ug"
-//            + " SET UserGame.lastEventId = ?1"
-//            + " where ug.id = ?2")
-//    Optional<UserGameResponse> updateUserGame(Long lastEventId, Long userGameId);
+
 }

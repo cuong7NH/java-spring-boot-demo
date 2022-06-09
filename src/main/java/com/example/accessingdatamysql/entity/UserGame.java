@@ -10,6 +10,7 @@ import java.util.Collection;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

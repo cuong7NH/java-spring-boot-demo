@@ -12,8 +12,7 @@ public class SignupRequest {
   @NotBlank
   @Size(min = 3, max = 20)
   private String username;
-  @NotNull
-  @NotEmpty
+  @NotBlank
   private String fullName;
   private Set<String> role;
   @NotBlank

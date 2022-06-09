@@ -1,11 +1,7 @@
 package com.example.accessingdatamysql.entity;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Table(name = "tbl_event")
 @Entity

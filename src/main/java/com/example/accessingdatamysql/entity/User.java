@@ -20,20 +20,9 @@ public class User {
     private String username;
     @Column(nullable = false)
     private String password;
-    // ManyToMany With Role
-    @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JoinTable(name = "tbl_user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private List<Role> roles;
-
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Collection<UserGame> userGames;
-
 
     public User(String username, String password) {
         this.username = username;
