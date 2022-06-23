@@ -1,52 +1,195 @@
-version: '3.8'
-services:
-  db:
-    image: mysql:8.0.29
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    ports:
-      - 3308:3306
-    environment:
-      - MYSQL_ROOT_PASSWORD=S3cret
-      - MYSQL_PASSWORD=cuong
-      - MYSQL_USER=cuong
-      - MYSQL_DATABASE=abc
-#  docker-mysql:
-#    image: mysql:8.0.23
+#version: '3.8'
+#services:
+#  db:
+#    image: mysql:8.0.29
+#    command: --default-authentication-plugin=mysql_native_password
 #    restart: always
 #    ports:
-#      - 3307:3306
+#      - 3308:3306
 #    environment:
-#      - MYSQL_ROOT_PASSWORD=root
-#      - MYSQL_USER=cuongcuong
-#      - MYSQL_PASSWORD=123456aA@
+#      - MYSQL_ROOT_PASSWORD=S3cret
+#      - MYSQL_PASSWORD=cuong
+#      - MYSQL_USER=cuong
 #      - MYSQL_DATABASE=abc
+#  app:
+#    build:
+#      context: .
+##    restart: always
+#    ports:
+#      - 8000:8000
+#      - 8081:8080
+#    environment:
+#      SPRING_APPLICATION_JSON: '{
+#           "spring.datasource.url"  : "jdbc:mysql://db:3306/abc?useSSL=false",
+#           "spring.datasource.username" : "cuong",
+#           "spring.datasource.password" : "cuong",
+#           "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+#           "spring.jpa.hibernate.ddl-auto" : "update"
+#         }'
 #    volumes:
-#      - mysql_data:/var/lib/mysql
-#      - mysql_config:/etc/mysql/conf.d
-  app:
-    build:
-      context: .
+#      - ./:/app
+#    command: ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
+#    depends_on:
+#      - db
+#volumes:
+#  mysql_data:
+#  mysql_config:
+#---------------------------------------/
+#  manager:
+#    image: sheepkiller/kafka-manager
+#    ports:
+#      - 9000:9000
+#    environment:
+#      - ZK_HOSTS=zookeeper:2181
+#    depends_on:
+#      - zookeeper
+
+#  redis:
+#    container_name: redis
+#    image: redis
+##    command: redis-server --requirepass 123456
+#    ports:
+#      - '6379:6379'
 #    restart: always
+#  redis-gui:
+#      container_name: redis-gui
+#      image: 'redislabs/redisinsight'
+#      ports:
+#        - '8001:8001'
+#      depends_on:
+#        - redis
+
+
+
+version: '2'
+services:
+#  db:
+#    image: mysql:8.0.29
+#    command: --default-authentication-plugin=mysql_native_password
+#    restart: always
+#    ports:
+#      - 3308:3306
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=S3cret
+#      - MYSQL_PASSWORD=cuong
+#      - MYSQL_USER=cuong
+#      - MYSQL_DATABASE=abc
+#  appEvent:
+#    build:
+#      context: .
+#    #    restart: always
+#    ports:
+#      - 8000:8000
+#      - 8087:8087
+#    environment:
+#      SPRING_APPLICATION_JSON: '{
+#             "server.port" : "8087",
+#             "spring.datasource.url"  : "jdbc:mysql://db:3306/abc?useSSL=false",
+#             "spring.datasource.username" : "cuong",
+#             "spring.datasource.password" : "cuong",
+#             "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+#             "spring.jpa.hibernate.ddl-auto" : "update",
+#             "cuongnh.app.jwtSecret": "bezKoderSecretKey",
+#             "cuongnh.app.jwtExpirationMs": "86400000",
+#             "redis.host": "localhost",
+#             "redis.port": "6379",
+#             "kafka.consumer.groupId": "tpd-loggers",
+#             "kafka.consumer.autoOffsetReset": "earliest",
+#             "kafka.broker": "localhost:9092",
+#             "tpd.topicName": "time-topic",
+#             "tpd.messagesPerRequest": "10",
+#           }'
+#    volumes:
+#      - ./:/app
+#    command: ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
+#    depends_on:
+#      - db
+#  appPoint:
+#    build:
+#      context: .
+#    #    restart: always
+#    ports:
+#      - 8000:8000
+#      - 8085:8085
+#    environment:
+#      SPRING_APPLICATION_JSON: '{
+#             "server.port" : "8085",
+#             "spring.datasource.url"  : "jdbc:mysql://db:3306/abc?useSSL=false",
+#             "spring.datasource.username" : "cuong",
+#             "spring.datasource.password" : "cuong",
+#             "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+#             "spring.jpa.hibernate.ddl-auto" : "update",
+#             "cuongnh.app.jwtSecret": "bezKoderSecretKey",
+#             "cuongnh.app.jwtExpirationMs": "86400000",
+#             "redis.host": "localhost",
+#             "redis.port": "6379",
+#             "kafka.consumer.groupId": "tpd-loggers",
+#             "kafka.consumer.autoOffsetReset": "earliest",
+#             "kafka.broker": "localhost:9092",
+#             "tpd.topicName": "time-topic",
+#             "tpd.messagesPerRequest": "10",
+#           }'
+#    volumes:
+#      - ./:/app
+#    command: ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
+#    depends_on:
+#      - db
+#  appTime:
+#    build:
+#      context: .
+#    #    restart: always
+#    ports:
+#      - 8000:8000
+#      - 8086:8086
+#    environment:
+#      SPRING_APPLICATION_JSON: '{
+#             "server.port" : "8086",
+#             "spring.datasource.url"  : "jdbc:mysql://db:3306/abc?useSSL=false",
+#             "spring.datasource.username" : "cuong",
+#             "spring.datasource.password" : "cuong",
+#             "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+#             "spring.jpa.hibernate.ddl-auto" : "update",
+#             "cuongnh.app.jwtSecret": "bezKoderSecretKey",
+#             "cuongnh.app.jwtExpirationMs": "86400000",
+#             "redis.host": "localhost",
+#             "redis.port": "6379",
+#             "kafka.consumer.groupId": "tpd-loggers",
+#             "kafka.consumer.autoOffsetReset": "earliest",
+#             "kafka.broker": "localhost:9092",
+#             "tpd.topicName": "time-topic",
+#             "tpd.messagesPerRequest": "10",
+#           }'
+#    volumes:
+#      - ./:/app
+#    command: ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
+#    depends_on:
+#      - db
+  zookeeper:
+    image: wurstmeister/zookeeper
     ports:
-      - 800:8000
-      - 8081:8080
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
     environment:
-#      - SERVER_PORT=8080
-#      - MYSQL_URL=jdbc:mysql://cuong:cuong@db:3308/abc
-#      - SPRING_DATASOURCE_URL=jdbc:mysql://docker-mysql:3306/abc?autoReconnect=true&useSSL=false
-      SPRING_APPLICATION_JSON: '{
-           "spring.datasource.url"  : "jdbc:mysql://db:3306/abc?useSSL=false",
-           "spring.datasource.username" : "cuong",
-           "spring.datasource.password" : "cuong",
-           "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
-           "spring.jpa.hibernate.ddl-auto" : "update"
-         }'
-    volumes:
-      - ./:/app
-    command: ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
-    depends_on:
-      - db
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+  redis:
+    container_name: redis
+    image: redis
+#    command: redis-server --requirepass 123456
+    ports:
+      - '6379:6379'
+    restart: always
+  redis-gui:
+      container_name: redis-gui
+      image: 'redislabs/redisinsight'
+      ports:
+        - '8001:8001'
+      depends_on:
+        - redis
 volumes:
-  mysql_data:
-  mysql_config:
+   mysql_data:
+   mysql_config:

@@ -1,29 +1,26 @@
 version: '3.8'
 services:
-  app:
-    build:
-      context: .
-    ports:
-      - 8000:8000
-      - 8080:8080
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
     environment:
-      - SERVER_PORT=8080
-      - MYSQL_URL=jdbc:mysql://db/abc
-    volumes:
-      - ./:/app
-    command: ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
-  db:
-    image: mysql:8.0.23
+      ZOOKEEPER_CLIENT_PORT: 2181
     ports:
-      - 3307:3306
+      - 2181:2181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=123456aA@
-      - MYSQL_DATABASE=abc
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - mysql_config:/etc/mysql/conf.d
-volumes:
-  mysql_data:
-  mysql_config:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
+    ports:
+      - 29092:29092
+  manager:
+    image: sheepkiller/kafka-manager
+    ports:
+      - 9000:9000
+    environment:
+      - ZK_HOSTS=zookeeper:2181
+    depends_on:
+      - zookeeper
