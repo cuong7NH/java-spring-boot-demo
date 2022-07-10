@@ -1,6 +1,5 @@
 package com.example.pointplay.services;
 
-import com.example.eventuser.repository.EventRepository;
 import com.example.eventuser.repository.UserGameRepository;
 
 import com.example.kafka.configuration.PointEvent;
@@ -10,12 +9,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.Objects;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j

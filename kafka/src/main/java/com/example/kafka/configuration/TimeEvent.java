@@ -1,16 +1,13 @@
 package com.example.kafka.configuration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Setter
 @Getter
-//@Builder
 
 public class TimeEvent {
     @JsonProperty("status")

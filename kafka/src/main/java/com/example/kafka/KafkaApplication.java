@@ -1,4 +1,4 @@
-package com.example.pointplay;
+package com.example.kafka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,10 +10,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EntityScan("com.example.*")
 @EnableConfigurationProperties
 @ConfigurationPropertiesScan("com.example.*")
-public class PointPlayApplication {
+public class KafkaApplication {
     public static void main(String[] args) {
-        SpringApplication.run(PointPlayApplication.class, args);
-        System.out.println("PointPlayApplication");
+        SpringApplication.run(KafkaApplication.class, args);
+        System.out.println("KafkaApplication");
     }
 
 }

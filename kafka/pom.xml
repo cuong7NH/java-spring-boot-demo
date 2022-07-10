@@ -15,8 +15,8 @@
     <description>kafka</description>
     <properties>
 <!--        <java.version>11</java.version>-->
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+<!--        <maven.compiler.source>11</mavezn.compiler.source>-->
+<!--        <maven.compiler.target>11</maven.compiler.target>-->
         <java.version>11</java.version>
         <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
     </properties>

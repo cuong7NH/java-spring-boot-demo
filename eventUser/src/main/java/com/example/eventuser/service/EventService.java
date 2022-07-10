@@ -1,5 +1,4 @@
 package com.example.eventuser.service;
-
 import com.example.eventuser.dto.request.CreateEventRequest;
 import com.example.eventuser.dto.request.EventRequest;
 import com.example.eventuser.dto.response.EventResponse2;
@@ -9,7 +8,6 @@ import com.example.eventuser.exception.NotFoundRecordException;
 import com.example.eventuser.repository.EventRepository;
 import com.example.kafka.configuration.TimeEvent;
 import com.example.kafka.services.PushEventServices;
-import com.example.kafka.services.RedisServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
