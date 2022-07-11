@@ -21,7 +21,7 @@ public class TimePlayController {
 
     @GetMapping("")
     public ResponseEntity<String> getTimePlay() {
-        return ResponseEntity.ok("Public Time Play");
+        return ResponseEntity.ok("Time Play: 135");
     }
 
 }

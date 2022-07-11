@@ -18,7 +18,7 @@ public class PointPlayController {
 
     @GetMapping("")
     public ResponseEntity<String> getPointPlay() {
-        return ResponseEntity.ok("Ahihi do ngoc POINT PLAY");
+        return ResponseEntity.ok("Point Play: 13");
     }
 
 }

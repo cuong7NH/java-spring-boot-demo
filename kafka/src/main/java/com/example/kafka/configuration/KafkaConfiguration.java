@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,12 +22,20 @@ import java.util.Map;
 @Configuration
 @RequiredArgsConstructor
 public class KafkaConfiguration {
+
+    @Value("${kafka.broker}")
+    private String kafkaBroker;
+
+    @Value("${kafka.consumer.groupId}")
+    private String kafkaGroupId;
+
+
     private final KafkaProperties kafkaProperties;
 
     @Bean
     public ProducerFactory<String, Object> producerFactory() {
         Map<String, Object> config = new HashMap<>();
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBroker);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         return new DefaultKafkaProducerFactory<>(config);
@@ -51,12 +59,10 @@ public class KafkaConfiguration {
         final JsonDeserializer<Object> jsonDeserializer = new JsonDeserializer<>();
         jsonDeserializer.addTrustedPackages("*");
         Map<String, Object> config = new HashMap<>();
-        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, "tpd-loggers");
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBroker);
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaGroupId);
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-//        return new DefaultKafkaConsumerFactory<>(config);
-
         return new DefaultKafkaConsumerFactory<>(
                 config, new StringDeserializer(), jsonDeserializer
         );
@@ -69,16 +75,6 @@ public class KafkaConfiguration {
         factory.setConsumerFactory(consumerGroup1Factory());
         return factory;
     }
-
-//    @Bean
-//    public ConsumerFactory<String, Object> consumerGroup2Factory() {
-//        Map<String, Object> config = new HashMap<>();
-//        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-//        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group2");
-//        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-//        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-//        return new DefaultKafkaConsumerFactory<>(config);
-//    }
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory() {
@@ -132,10 +128,10 @@ public class KafkaConfiguration {
 //        return new KafkaTemplate<>(producerFactory());
 //    }
 //
-    @Bean
-    public NewTopic adviceTopic() {
-        return new NewTopic("point-topic", 3, (short) 1);
-    }
+//    @Bean
+//    public NewTopic adviceTopic() {
+//        return new NewTopic("point-topic", 3, (short) 1);
+//    }
 //
 //    @Bean
 //    public ConsumerFactory<String, Object> consumerFactory() {
